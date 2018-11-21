@@ -280,6 +280,23 @@ def chat_server():
 
     server_socket.close()
 
+# broadcast chat messages to all connected clients
+def broadcast (server_socket, sock, message):
+    key = "secret_k"
+    for socket in SOCKET_LIST:
+        # send the message only to peer
+        if socket != server_socket and socket != sock :
+            try :
+                d = des()
+                message = d.encrypt(key, message)
+                socket.send(message)
+            except :
+                # broken socket connection
+                socket.close()
+                # broken socket, remove it
+                if socket in SOCKET_LIST:
+                    SOCKET_LIST.remove(socket)
+
 def broadcast2 (server_socket, sock, message):
     for socket in SOCKET_LIST:
         # send the message only to peer
