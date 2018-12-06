@@ -62,7 +62,8 @@ def chat_client():
                 text = msg
                 d = des()
                 msg = d.encrypt(key,text)
-                s.send(msg)
+                msg = encrypt(publicKey, msg)
+                s.send(str(msg))
                 sys.stdout.write('[Me] '); sys.stdout.flush()
 
 if __name__ == "__main__":

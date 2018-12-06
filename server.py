@@ -63,6 +63,8 @@ def chat_server():
                     data = sock.recv(RECV_BUFFER)
                     if data:
                         # there is something in the socket
+                        data = literal_eval(data)
+                        data = decrypt(private, data)
                         d = des()
                         encrypted = d.encrypt(key, "\r" '[' + str(sock.getpeername()) + '] ')
                         encrypted = encrypt(private, encrypted + data)
