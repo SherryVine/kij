@@ -1,5 +1,3 @@
-#-*- coding: utf8 -*-
-
 #Initial permut matrix for the datas
 PI = [58, 50, 42, 34, 26, 18, 10, 2,
       60, 52, 44, 36, 28, 20, 12, 4,
@@ -148,8 +146,7 @@ class des():
             key = key[:8] #If key size is above 8bytes, cut to be 8bytes long
 
         self.password = key
-        if len(text) % 8 != 0 :
-            print "PLAINTEXT TOO LONG!"
+
         index = int(len(text)/8) * 8
         self.text = text[:index]
 
@@ -218,13 +215,3 @@ class des():
 
     def decrypt(self, key, text, padding=False):
         return self.run(key, text, DECRYPT)
-
-if __name__ == '__main__':
-    key = "secret_k"
-    text= "Hello wo"
-    d = des()
-    r = d.encrypt(key,text)
-    r2 = d.decrypt(key,r)
-    print "Ciphered: ", r.encode('hex')
-    #print "Ciphered: %r" % r
-    print "Deciphered: ", r2
